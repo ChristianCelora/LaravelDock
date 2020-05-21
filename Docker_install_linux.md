@@ -56,3 +56,29 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 ```
 
 source https://linuxhint.com/install_docker_linux_mint/
+
+
+## Use Docker senza privilegi root
+Per lanciare i comandi di docker senza i privilegi di root, creare il gruppo "docker" se ancora non esiste
+```
+sudo groupadd docker
+```
+Aggiungere l'utenza dalla quale si vuole usare docker al gruppo "docker"
+```
+sudo usermod -aG docker $USER
+```
+Effettuare un logout / login per applicare le modifiche oppure lanciare il comando 
+```
+newgrp docker 
+```
+per applicare i cambiamenti al gruppo.
+
+### se ho già lanciato un comando docker con sudo
+In tal caso uscirà un errore perchè sono stati cambiati i permessi della cartella .docker 
+>WARNING: Error loading config file: /home/user/.docker/config.json -
+>stat /home/user/.docker/config.json: permission denied
+Per cambiare i permessi della cartella lanciare i comandi
+```
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "$HOME/.docker" -R
+```
