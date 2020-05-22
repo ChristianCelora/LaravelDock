@@ -40,6 +40,7 @@ Aggiungere il repository di Docker. Docker ha 3 repository:
 * stable
 * nightly
 * test
+
 In questo caso aggiungeremo quello stable:
 ``` 
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"

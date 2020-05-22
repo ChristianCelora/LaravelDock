@@ -1,0 +1,46 @@
+version: '3'
+
+networks:
+  laravel:
+
+services:
+  apache:
+    image: httpd:latest
+    container_name: apache
+    ports: 
+      - "8081:80"
+    volumes:
+      - ./src:/var/www/sites 
+      - ./apache/default.conf:/etc/apache/sites-available/default.conf # per laravel dobbiamo cambiare dove l'apache legge i file. sovrascriviamo il default.conf
+    depends_on: 
+      - php
+      - mysql
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:5.7.30
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    volumes:
+      -./mysql:/var/lib/mysql # necessario se il restart è uguale ad unless-stopped
+    environment:
+      - MYSQL_DATABASE: db_name
+      - MYSQL_user: mysql_user
+      - MYSQL_PASSWORD: secret
+      - MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - laravel
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
