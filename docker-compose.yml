@@ -25,12 +25,12 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      -./mysql:/var/lib/mysql # necessario se il restart è uguale ad unless-stopped
+      - ./mysql:/var/lib/mysql # necessario se il restart è uguale ad unless-stopped
     environment:
-      - MYSQL_DATABASE: db_name
-      - MYSQL_user: mysql_user
-      - MYSQL_PASSWORD: secret
-      - MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: "mysql_user"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_ROOT_PASSWORD: "secret"
     networks:
       - laravel
   php:

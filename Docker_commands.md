@@ -49,6 +49,25 @@ docker create <image>:<tag>
 ```
 Docker cercherà il container sulla macchina locale. Se non lo trova proverà a scaricare il container da Docker Hub.
 
+## Vedere container sulla macchina
+Visualizza solo i contenitori in esecuzione
+```
+docker ps
+```
+Visualizza tutti i contenitori (in esecuzione e fermati)
+```
+docker ps -a
+```
+Per visualizzare i contenitori con il relativo spazio utilizzato utilizzare il flag *-s*
+```
+docker ps -s
+```
+Questo flag aggiunge 2 colonne:
+* la colonna "size" indica la quantità di disco che è utilizzata nel writable layer di ogni container
+* la colonna "virtual size" indica lo spazio totale utilizzato dall'immagine in read-only per il contenitore e il writable layer
+
+Il *writable layer* è un livello creato da Docker quando creiamo un nuovo container. In questo caso viene aggiunto questo livello sopra lo stack dei livelli presenti sopra l'immagine di base. Il nuovo livello conterrà tutti i cambiamenti effettuati al container in esecuzione, come la creazione di nuovi file o la modifica / cancellazione di file esistenti.
+
 # Docker files
 ## Docker-compose.yml
 E' un file di tipo YAML dove vengono definiti i servizi, la configurazione della rete e la configurazione del disco fisso. In questo file specificheremo la struttura di un file di versione 3.x. La versione è specificata all'inizio del file con il tag *version*. Prendiamo come esempio la realizzazione di un contenitore per un server mysql-apache con all'interno Laravel installato:
@@ -145,3 +164,11 @@ FROM php:7.3.18-zts-alpine3.11
 RUN docker-php-ext-install pdo pdo_mysql
 ```
 Con il comando *FROM* viene specificata l'immagine da recuperare e con il comando *RUN* vengono installate le estensioni di php necessarie (in questo caso saranno pdo e pdo_mysql).
+
+## Eseguire il container
+Per eseguire il container lanciare i comandi 
+```
+docker-compose build
+docker-compose up -d
+```
+il flag *-d* indica detached-mode, ovvero il container viene eseguito in background.

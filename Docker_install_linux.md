@@ -58,6 +58,20 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 
 source https://linuxhint.com/install_docker_linux_mint/
 
+### Installare docker-compose
+Oltre a Docker avremo bisogno anche del docker-compose. Scaricare l'eseguibile con il comando (verrà scaricata l'ultima versione stabile compatibile con il sistema)
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+dare i permessi di esecuzione all'eseguibile
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+Se il comando docker-compose dovrebbe fallire dopo l'installazione è necessario creare un symbolic link alla cartella /usr/bin
+```
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
 
 ## Use Docker senza privilegi root
 Per lanciare i comandi di docker senza i privilegi di root, creare il gruppo "docker" se ancora non esiste
