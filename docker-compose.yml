@@ -10,8 +10,9 @@ services:
     ports: 
       - "8081:80"
     volumes:
-      - ./src:/var/www/sites 
-      - ./apache/default.conf:/etc/apache2/sites-available/000-default.conf # per laravel dobbiamo cambiare dove l'apache legge i file. sovrascriviamo il default.conf
+      #- ./src:/var/www/html
+      - ./src:/usr/local/apache2/htdocs
+      #- ./apache/default.conf:/etc/apache2/sites-available/000-default.conf # per laravel dobbiamo cambiare dove l'apache legge i file. sovrascriviamo il default.conf
     depends_on: 
       - php
       - mysql
