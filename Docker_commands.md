@@ -68,6 +68,11 @@ Questo flag aggiunge 2 colonne:
 
 Il *writable layer* è un livello creato da Docker quando creiamo un nuovo container. In questo caso viene aggiunto questo livello sopra lo stack dei livelli presenti sopra l'immagine di base. Il nuovo livello conterrà tutti i cambiamenti effettuati al container in esecuzione, come la creazione di nuovi file o la modifica / cancellazione di file esistenti.
 
+## Eseguire un comando di shell in un container
+```
+docker exec <container> <comando>
+```
+
 # Docker files
 ## Docker-compose.yml
 E' un file di tipo YAML dove vengono definiti i servizi, la configurazione della rete e la configurazione del disco fisso. In questo file specificheremo la struttura di un file di versione 3.x. La versione è specificata all'inizio del file con il tag *version*. Prendiamo come esempio la realizzazione di un contenitore per un server mysql-apache con all'interno Laravel installato:
@@ -172,3 +177,12 @@ docker-compose build
 docker-compose up -d
 ```
 il flag *-d* indica detached-mode, ovvero il container viene eseguito in background.
+
+Per fermare un container usare il comando
+```
+docker stop <container_id>
+```
+Per fermare tutti i container di docker in un singolo comando usare 
+```
+docker stop $(docker ps -a -q)
+```
