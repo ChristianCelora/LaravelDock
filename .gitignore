@@ -1,3 +1,4 @@
 src/*
 !src/.gitkeep
 mysql/*
+apache/my-httpd.conf
