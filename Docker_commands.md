@@ -68,6 +68,12 @@ Questo flag aggiunge 2 colonne:
 
 Il *writable layer* è un livello creato da Docker quando creiamo un nuovo container. In questo caso viene aggiunto questo livello sopra lo stack dei livelli presenti sopra l'immagine di base. Il nuovo livello conterrà tutti i cambiamenti effettuati al container in esecuzione, come la creazione di nuovi file o la modifica / cancellazione di file esistenti.
 
+Per vedere le immagini presenti sulla macchina:
+```
+docker images -a
+```
+
+
 ## Eseguire un comando di shell in un container
 ```
 docker exec <container> <comando>
@@ -155,7 +161,7 @@ php:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/html
+      - ./src:/usr/local/apache2/htdocs # httpd container document root
     ports:
       - "9000:9000"
     networks:
@@ -169,6 +175,11 @@ FROM php:7.3.18-zts-alpine3.11
 RUN docker-php-ext-install pdo pdo_mysql
 ```
 Con il comando *FROM* viene specificata l'immagine da recuperare e con il comando *RUN* vengono installate le estensioni di php necessarie (in questo caso saranno pdo e pdo_mysql).
+
+Se si vuole lanciare un comando all'interno di un contenitore già in esecuzione si può utilizzare il comando *docker exec*
+```
+docker exec <container> <command>
+```
 
 ## Eseguire il container
 Per eseguire il container lanciare i comandi 
