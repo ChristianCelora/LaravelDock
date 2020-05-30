@@ -74,11 +74,6 @@ docker images -a
 ```
 
 
-## Eseguire un comando di shell in un container
-```
-docker exec <container> <comando>
-```
-
 # Docker files
 ## Docker-compose.yml
 E' un file di tipo YAML dove vengono definiti i servizi, la configurazione della rete e la configurazione del disco fisso. In questo file specificheremo la struttura di un file di versione 3.x. La versione è specificata all'inizio del file con il tag *version*. Prendiamo come esempio la realizzazione di un contenitore per un server mysql-apache con all'interno Laravel installato:
@@ -129,7 +124,8 @@ Le porte hanno il formato
 <computer_port>:<container_port>
 ```
 Il comando ports effettua il binding tra le due porte.
-Il comando *volumnes* effettua un simlink tra una cartella sul nostro dispositivo e una cartella all'interno del contenitore.
+Il comando *volumes* effettua un simlink tra una cartella sul nostro dispositivo e una cartella all'interno del contenitore.
+*IMPORTANTE:* il comando volumes effettua un link tra i file presenti sulla macchina e il container. I permessi dei file vengono presi da quelli in locale.
 Il comando *depends_on* specifica quali servizi devono essere eseguiti prima di eseguire il nostro servizio.
 
 Prendiamo ora per esempio la configurazione del servizio mysql:
@@ -176,18 +172,17 @@ RUN docker-php-ext-install pdo pdo_mysql
 ```
 Con il comando *FROM* viene specificata l'immagine da recuperare e con il comando *RUN* vengono installate le estensioni di php necessarie (in questo caso saranno pdo e pdo_mysql).
 
-Se si vuole lanciare un comando all'interno di un contenitore già in esecuzione si può utilizzare il comando *docker exec*
-```
-docker exec <container> <command>
-```
-
+# Comandi docker
 ## Eseguire il container
 Per eseguire il container lanciare i comandi 
 ```
 docker-compose build
 docker-compose up -d
 ```
-il flag *-d* indica detached-mode, ovvero il container viene eseguito in background.
+Con il comando build viene create l'immagine dal Dockerfile e un "context".
+il flag *-d* nel comando up indica detached-mode, ovvero il container viene eseguito in background.
+
+Dopo il primo build è sufficiente lanciare il comando *docker-compose up* per ricreare l'ambiente.
 
 Per fermare un container usare il comando
 ```
@@ -196,4 +191,22 @@ docker stop <container_id>
 Per fermare tutti i container di docker in un singolo comando usare 
 ```
 docker stop $(docker ps -a -q)
+```
+
+
+## Eliminare un container
+Per eliminare un container lanciare il comando 
+```
+docker rm <container>
+```
+
+## Altri comandi
+Se si vuole lanciare un comando all'interno di un contenitore già in esecuzione si può utilizzare il comando *docker exec*
+```
+docker exec <container> <command>
+```
+
+Per stampare le informazioni su un container
+```
+docker inspect <container>
 ```
