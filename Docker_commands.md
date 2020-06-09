@@ -199,6 +199,11 @@ Per vedere i log del container in esecuzione eseguire:
 docker logs -f --details <container_name>
 ```
 Nel caso si lancia il comando su un container con php e mysql mostrerà i corrispettivi error logs dei due.
+Per effettuare un grep di una keyword nei log
+```
+docker logs -f <container_name> 2>&1 | grep <keyword>
+```
+
 
 ## Eliminare un container
 Per eliminare un container lanciare il comando 
