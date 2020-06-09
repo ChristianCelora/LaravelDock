@@ -193,6 +193,12 @@ Per fermare tutti i container di docker in un singolo comando usare
 docker stop $(docker ps -a -q)
 ```
 
+## Logs
+Per vedere i log del container in esecuzione eseguire:
+```
+docker logs -f --details <container_name>
+```
+Nel caso si lancia il comando su un container con php e mysql mostrerà i corrispettivi error logs dei due.
 
 ## Eliminare un container
 Per eliminare un container lanciare il comando 
@@ -210,3 +216,4 @@ Per stampare le informazioni su un container
 ```
 docker inspect <container>
 ```
+
